@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Live Event | HackVillage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill-1 {
+        font-variation-settings: 'FILL' 1;
+    }
+    .font-mono-num {
+        font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.5; }
+    }
+    .animate-pulse-dot {
+        animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    /* Hide scrollbar for tabs */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    surface: "#f9f9fd",
+                    "surface-dim": "#d9dade",
+                    "surface-bright": "#f9f9fd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3f7",
+                    "surface-container": "#eeedf2",
+                    "surface-container-high": "#e8e8ec",
+                    "surface-container-highest": "#e2e2e6",
+                    "on-surface": "#1a1c1f",
+                    "on-surface-variant": "#454654",
+                    "inverse-surface": "#2f3034",
+                    "inverse-on-surface": "#f0f0f4",
+                    outline: "#757685",
+                    "outline-variant": "#c5c5d6",
+                    "surface-tint": "#4051ca",
+                    primary: "#000d66",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#001a9e",
+                    "on-primary-container": "#8391ff",
+                    "inverse-primary": "#bcc2ff",
+                    secondary: "#00629d",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#00a2fd",
+                    "on-secondary-container": "#003558",
+                    tertiary: "#1c1e1e",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#313333",
+                    "on-tertiary-container": "#9a9b9b",
+                    error: "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dfe0ff",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-primary-fixed": "#000c61",
+                    "on-primary-fixed-variant": "#2436b1",
+                    "secondary-fixed": "#cfe5ff",
+                    "secondary-fixed-dim": "#98cbff",
+                    "on-secondary-fixed": "#001d33",
+                    "on-secondary-fixed-variant": "#004a77",
+                    "tertiary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#454747",
+                    background: "#f9f9fd",
+                    "on-background": "#1a1c1f",
+                    "surface-variant": "#e2e2e6",
+                    success: "#047857",
+                    "success-container": "#d1fae5"
+                },
+                fontFamily: {
+                    sans: ["Inter", "sans-serif"],
+                    mono: ["JetBrains Mono", "monospace"],
+                    "headline-xl": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "body-sm": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"]
+                },
+                fontSize: {
+                    "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                    "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                    "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                    "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                    "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                    "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+                    "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }]
+                }
+            }
+        }
+    }
+</script>
+<meta content="mobile_tab" name="shell-type"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-sans text-on-surface antialiased min-h-screen selection:bg-secondary/20">
+<!-- PWA Mobile Container -->
+<div class="max-w-md mx-auto min-h-screen flex flex-col bg-background pb-24 relative shadow-xl">
+<!-- Header -->
+<header class="px-4 pt-3 pb-3 bg-surface border-b border-outline-variant/50 sticky top-0 z-30">
+<div class="flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0">
+<button aria-label="Go back" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface transition-colors">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+</button>
+<div class="min-w-0">
+<h1 class="text-xl font-bold tracking-tight text-primary truncate leading-tight">Live Event</h1>
+<p class="text-xs text-on-surface-variant truncate font-medium">
+                        Hacking phase • <span class="text-secondary font-semibold">Pan-African DeFi &amp; AI Buildathon 2024</span>
+</p>
+</div>
+</div>
+<!-- Organizer Avatar with Verified Ring -->
+<div class="relative flex-shrink-0">
+<div class="w-9 h-9 rounded-full ring-2 ring-blue-600/30 overflow-hidden bg-surface-container">
+<img alt="Organizer Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo8_q12jXPkFIHq1lPhUMv8L3846tf_NhBSXPfMeZLMjgomtKqxGpQNwzX0QsMgowHCtZ7re0OczCRhpJ2Ey_cFsIAgpZeeyUEodOv3vkUxSeEP0HJ87cBBACSLdpwprIIpkAS-Fmg4GuJt81O4yL6ZW1_breOrpNhQNVoSgBh8QxnIp73t5bdvkyVZa57CMmx0XBdJ2YGd-6X837PjlnxHPLeZ_vSD6KV8-VVAcqFjiwMWw-5jW3F"/>
+</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-600 border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[8px] text-white font-bold">check</span>
+</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="px-4 pt-4 space-y-4"><div class="flex flex-col w-full space-y-4">
+<!-- Live Phase Urgency Header Card -->
+<div class="w-full bg-primary text-on-primary rounded-xl p-4 shadow-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-surface-container-lowest animate-pulse"></span>
+<span>HACKING PHASE</span>
+</div>
+<div class="flex items-center gap-1 text-on-primary-container font-mono text-label-sm">
+<span class="material-symbols-outlined text-sm">timer</span>
+<span class="tracking-wide" id="war-room-timer">18h 41m 58s</span>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md tracking-tight leading-snug">
+      Pan-African DeFi &amp; AI Buildathon
+    </h2>
+<p class="font-body-sm text-body-sm text-on-primary-container mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container">hub</span>
+<span>Nairobi Hub • 68 Node Clusters Online</span>
+</p>
+<!-- Quick Search / Filter Bar -->
+<div class="mt-3 relative flex items-center">
+<span class="material-symbols-outlined text-outline absolute left-3 pointer-events-none text-base">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/70 text-body-sm font-body-sm pl-9 pr-8 py-2 rounded-lg outline-none focus:bg-surface" id="project-search" placeholder="Search projects, tracks, repos, or judges..." type="text"/>
+<button class="absolute right-2 text-outline hover:text-on-surface flex items-center justify-center p-1 rounded">
+<span class="material-symbols-outlined text-base">tune</span>
+</button>
+</div>
+</div>
+<!-- Live Status KPIs Grid -->
+<div class="grid grid-cols-2 gap-2.5">
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Teams Enrolled</span>
+<span class="p-1.5 bg-secondary-fixed text-on-secondary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-base">groups</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="font-headline-md text-headline-md text-primary font-mono">68</span>
+<span class="font-label-sm text-label-sm text-secondary">100% cap</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Submissions</span>
+<span class="p-1.5 bg-surface-container text-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-base">upload_file</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="font-headline-md text-headline-md text-on-surface font-mono">52</span>
+<span class="font-label-sm text-label-sm text-error">16 Pending</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 76%;"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Active Judges</span>
+<span class="p-1.5 bg-secondary-fixed text-on-secondary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-base">gavel</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="font-headline-md text-headline-md text-primary font-mono">12</span>
+<span class="font-label-sm text-label-sm text-secondary">3 Clusters</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">Avg 5.6 rev/judge</p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Judging Pace</span>
+<span class="p-1.5 bg-surface-container text-secondary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-base">speed</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-1.5">
+<span class="font-headline-md text-headline-md text-secondary font-mono">44%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">46 of 104</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 44%;"></div>
+</div>
+</div>
+</div>
+<!-- Interactive Tab Bar Switcher -->
+<div class="w-full bg-surface-container p-1 rounded-xl flex items-center gap-1 overflow-x-auto no-scrollbar">
+<button class="flex-1 min-w-[110px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-primary shadow-xs font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all text-center" id="tab-btn-teams" onclick="switchWarRoomTab('teams')">
+<span class="material-symbols-outlined text-base">folder_special</span>
+<span>Projects (68)</span>
+</button>
+<button class="flex-1 min-w-[110px] py-2 px-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high flex items-center justify-center gap-1.5 transition-all text-center" id="tab-btn-judges" onclick="switchWarRoomTab('judges')">
+<span class="material-symbols-outlined text-base">balance</span>
+<span>Judges (12)</span>
+</button>
+<button class="flex-1 min-w-[100px] py-2 px-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high flex items-center justify-center gap-1.5 transition-all text-center" id="tab-btn-leaderboard" onclick="switchWarRoomTab('leaderboard')">
+<span class="material-symbols-outlined text-base">trophy</span>
+<span>Live Board</span>
+</button>
+</div>
+<!-- SECTION 1: Teams & Submissions Matrix (Default Tab) -->
+<div class="space-y-3" id="section-teams">
+<!-- Quick filter pill roll -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+<span class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap">All Tracks</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">DeFi (28)</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">AI Agents (24)</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">DePIN (16)</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">Flagged (3)</span>
+</div>
+<!-- Project Card 1: Verified & Fully Scored -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-2.5 relative">
+<div class="flex items-start justify-between gap-2">
+<div class="min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold truncate">ZK-Shield Protocol</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+              DeFi
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span>
+<span>Repo Verified</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 truncate">
+            Privacy-first zero-knowledge liquidity router on Layer 2
+          </p>
+</div>
+<div class="flex-shrink-0 text-right">
+<span class="font-label-sm text-label-sm bg-secondary text-on-secondary px-2 py-0.5 rounded-full font-mono font-bold">
+            9.4 / 10
+          </span>
+</div>
+</div>
+<!-- Proof Badges & Artifacts -->
+<div class="flex items-center gap-2 py-1">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">code</span>
+<span class="font-mono">github.com/zk-shield</span>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">play_circle</span>
+<span>Demo (3m 12s)</span>
+</div>
+</div>
+<!-- Assigned Judges & Scoring status -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<div class="flex -space-x-1.5 overflow-hidden">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">SK</div>
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-sm text-label-sm font-bold">DO</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Sarah K. &amp; David O.</span>
+</div>
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-sm">task_alt</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">2/2 Scored</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2: Ready for review / Pending Judge -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-2.5 relative">
+<div class="flex items-start justify-between gap-2">
+<div class="min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold truncate">AutonomousLiquidity</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              AI Agents
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Ready for Review
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 truncate">
+            Autonomous multi-agent arbitrage swarm executing cross-rollup trades
+          </p>
+</div>
+<div class="flex-shrink-0">
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full font-mono">
+            1/2 Complete
+          </span>
+</div>
+</div>
+<!-- Proof Badges -->
+<div class="flex items-center gap-2 py-1">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">smart_toy</span>
+<span>Agent Model CID</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-sm">videocam</span>
+<span>Pitch (2m 45s)</span>
+</div>
+</div>
+<!-- Actionable Judge Status -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-sm text-label-sm font-bold">AB</div>
+<div class="truncate">
+<p class="font-body-sm text-body-sm text-on-surface truncate">Pending: Amina B.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">David O. scored: 8.8</p>
+</div>
+</div>
+<button class="flex-shrink-0 bg-primary-container text-on-primary px-3 py-1.5 rounded-lg font-label-sm text-label-sm flex items-center gap-1 transition-transform active:scale-95 shadow-xs" onclick="nudgeJudge('Amina B.', this)">
+<span class="material-symbols-outlined text-sm">notifications_active</span>
+<span>Nudge</span>
+</button>
+</div>
+</div>
+<!-- Project Card 3: Draft Incomplete / Needs Organizer Attention -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-2.5 relative">
+<div class="flex items-start justify-between gap-2">
+<div class="min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold truncate">AfriMesh DePIN</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+              DePIN
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">warning</span>
+<span>Draft Incomplete</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-error mt-0.5 truncate">
+            Missing smart contract deployment verification • Submissions lock in 18h
+          </p>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Team Lead: kwame_eth (Discord)</span>
+<button class="text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1 hover:underline" onclick="pingTeamLead('AfriMesh DePIN')">
+<span class="material-symbols-outlined text-sm">send</span>
+<span>Direct Ping</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Judge Workload & Assignment Panel -->
+<div class="hidden space-y-3" id="section-judges">
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Judge Workload Distribution</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active pool: 12 assigned judges</p>
+</div>
+<button class="bg-primary text-on-primary px-3 py-1.5 rounded-lg font-label-sm text-label-sm flex items-center gap-1.5 active:scale-95 transition-all shadow-xs" onclick="autoRebalanceAssignments()">
+<span class="material-symbols-outlined text-sm">sync_alt</span>
+<span>Auto-Rebalance</span>
+</button>
+</div>
+<!-- Judge Item 1 -->
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-label-md">SK</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Sarah K. (Senior Lead)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Track: DeFi Protocols</p>
+</div>
+</div>
+<span class="font-mono text-label-sm font-bold text-secondary">10 / 12 (83%)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 83%;"></div>
+</div>
+</div>
+<!-- Judge Item 2 -->
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-bold text-label-md">AB</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Amina B.</p>
+<p class="font-label-sm text-label-sm text-error font-medium">5 / 12 (42%) • Needs nudge</p>
+</div>
+</div>
+<button class="bg-surface-container-highest text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-lg flex items-center gap-1 active:scale-95" onclick="nudgeJudge('Amina B.', this)">
+<span class="material-symbols-outlined text-xs">campaign</span>
+<span>Nudge Judge</span>
+</button>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 42%;"></div>
+</div>
+</div>
+<!-- Judge Item 3 -->
+<div class="p-3 bg-surface-container-low rounded-xl space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md">DO</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">David O.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Track: AI Infrastructure</p>
+</div>
+</div>
+<span class="font-mono text-label-sm font-bold text-secondary">9 / 12 (75%)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Live Judging Leaderboard (Interactive Tab) -->
+<div class="hidden space-y-3" id="section-leaderboard">
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Preliminary Top Ranked</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live normalized multi-judge score</p>
+</div>
+<span class="material-symbols-outlined text-secondary">insights</span>
+</div>
+<div class="space-y-2">
+<!-- Rank 1 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold font-mono text-label-sm">1</span>
+<div class="truncate">
+<p class="font-label-md text-label-md text-on-surface font-bold truncate">ZK-Shield Protocol</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 evaluations</p>
+</div>
+</div>
+<span class="font-mono font-bold text-label-md text-secondary">9.40</span>
+</div>
+<!-- Rank 2 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="w-6 h-6 rounded-full bg-surface-container text-primary flex items-center justify-center font-bold font-mono text-label-sm">2</span>
+<div class="truncate">
+<p class="font-label-md text-label-md text-on-surface font-bold truncate">EcoSense Oracle</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 evaluations</p>
+</div>
+</div>
+<span class="font-mono font-bold text-label-md text-secondary">9.15</span>
+</div>
+<!-- Rank 3 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="w-6 h-6 rounded-full bg-surface-container text-primary flex items-center justify-center font-bold font-mono text-label-sm">3</span>
+<div class="truncate">
+<p class="font-label-md text-label-md text-on-surface font-bold truncate">PayPulse Offline Mesh</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">3 evaluations</p>
+</div>
+</div>
+<span class="font-mono font-bold text-label-md text-secondary">8.92</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Incident & Dispute Quick Actions (War Room Command) -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl shadow-sm space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-primary">shield</span>
+<h4 class="font-label-md text-label-md text-on-surface font-bold">War Room Emergency Tools</h4>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Admin Privilege</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left flex flex-col justify-between" onclick="triggerAuditModal()">
+<span class="material-symbols-outlined text-error text-xl mb-1">policy</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Plagiarism Audit</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Flag Repo or Diff</span>
+</button>
+<button class="p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left flex flex-col justify-between" onclick="triggerBroadcastModal()">
+<span class="material-symbols-outlined text-secondary text-xl mb-1">broadcast_on_personal</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Emergency Ping</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Discord + SMS blast</span>
+</button>
+</div>
+</div>
+<!-- Toast Notification Container for interactive delight -->
+<div class="fixed bottom-24 left-4 right-4 max-w-md mx-auto hidden bg-inverse-surface text-inverse-on-surface py-2.5 px-4 rounded-xl shadow-xl flex items-center justify-between z-50 transition-opacity" id="war-room-toast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-base">check_circle</span>
+<span class="font-body-sm text-body-sm" id="war-room-toast-msg">Action triggered</span>
+</div>
+<button class="text-inverse-on-surface/80 hover:text-inverse-on-surface" onclick="hideToast()">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</div>
+</div>
+<script>
+  // Tab Switcher Logic
+  function switchWarRoomTab(tabKey) {
+    const sections = {
+      teams: document.getElementById('section-teams'),
+      judges: document.getElementById('section-judges'),
+      leaderboard: document.getElementById('section-leaderboard')
+    };
+
+    const buttons = {
+      teams: document.getElementById('tab-btn-teams'),
+      judges: document.getElementById('tab-btn-judges'),
+      leaderboard: document.getElementById('tab-btn-leaderboard')
+    };
+
+    Object.keys(sections).forEach(key => {
+      if (sections[key]) {
+        if (key === tabKey) {
+          sections[key].classList.remove('hidden');
+        } else {
+          sections[key].classList.add('hidden');
+        }
+      }
+    });
+
+    Object.keys(buttons).forEach(key => {
+      if (buttons[key]) {
+        if (key === tabKey) {
+          buttons[key].className = 'flex-1 min-w-[100px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-primary shadow-xs font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all text-center';
+        } else {
+          buttons[key].className = 'flex-1 min-w-[100px] py-2 px-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high flex items-center justify-center gap-1.5 transition-all text-center';
+        }
+      }
+    });
+  }
+
+  // Interactive Micro-actions
+  function showToast(message) {
+    const toast = document.getElementById('war-room-toast');
+    const toastMsg = document.getElementById('war-room-toast-msg');
+    if (toast && toastMsg) {
+      toastMsg.textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  }
+
+  function hideToast() {
+    const toast = document.getElementById('war-room-toast');
+    if (toast) toast.classList.add('hidden');
+  }
+
+  function nudgeJudge(judgeName, btn) {
+    if (btn) {
+      btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span><span>Nudged!</span>';
+      btn.disabled = true;
+    }
+    showToast(`Urgent review ping dispatched to ${judgeName} on Telegram & Email`);
+  }
+
+  function pingTeamLead(projectName) {
+    showToast(`Direct alert sent to ${projectName} team channel to complete smart contract check.`);
+  }
+
+  function autoRebalanceAssignments() {
+    showToast(`Evenly redistributed 16 unassigned drafts across 12 active judges.`);
+  }
+
+  function triggerAuditModal() {
+    showToast(`Plagiarism audit initiated across 52 GitHub repositories using Semgrep AST.`);
+  }
+
+  function triggerBroadcastModal() {
+    showToast(`Emergency announcement dialog opened. Synced with Discord bot.`);
+  }
+
+  // Live Timer Countdown simulator
+  let warRoomSeconds = 18 * 3600 + 41 * 60 + 58;
+  const warTimerEl = document.getElementById('war-room-timer');
+
+  setInterval(() => {
+    if (warRoomSeconds > 0) {
+      warRoomSeconds--;
+      const h = Math.floor(warRoomSeconds / 3600);
+      const m = Math.floor((warRoomSeconds % 3600) / 60);
+      const s = warRoomSeconds % 60;
+      if (warTimerEl) {
+        warTimerEl.textContent = `${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+      }
+    }
+  }, 1000);
+</script></main>
+<!-- Bottom Navigation (5 tabs) -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto h-[64px] z-50 bg-surface/95 backdrop-blur-md px-3 border-t border-outline-variant flex justify-around items-center">
+<a aria-current="page" class="flex flex-col items-center justify-center text-primary relative py-1 flex-1" href="#">
+<div class="px-3 py-0.5 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px] fill-1 text-primary">home</span>
+</div>
+<span class="text-[10px] font-bold tracking-tight text-primary mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Escrow</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">emoji_events</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Winners</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">perm_media</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Trust</span>
+</a>
+</nav>
+</div>
+</body></html>

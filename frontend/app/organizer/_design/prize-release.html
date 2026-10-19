@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Prize Release | HackVillage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill-1 {
+        font-variation-settings: 'FILL' 1;
+    }
+    .font-mono-num {
+        font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.5; }
+    }
+    .animate-pulse-dot {
+        animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    /* Hide scrollbar for tabs */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    surface: "#f9f9fd",
+                    "surface-dim": "#d9dade",
+                    "surface-bright": "#f9f9fd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3f7",
+                    "surface-container": "#eeedf2",
+                    "surface-container-high": "#e8e8ec",
+                    "surface-container-highest": "#e2e2e6",
+                    "on-surface": "#1a1c1f",
+                    "on-surface-variant": "#454654",
+                    "inverse-surface": "#2f3034",
+                    "inverse-on-surface": "#f0f0f4",
+                    outline: "#757685",
+                    "outline-variant": "#c5c5d6",
+                    "surface-tint": "#4051ca",
+                    primary: "#000d66",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#001a9e",
+                    "on-primary-container": "#8391ff",
+                    "inverse-primary": "#bcc2ff",
+                    secondary: "#00629d",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#00a2fd",
+                    "on-secondary-container": "#003558",
+                    tertiary: "#1c1e1e",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#313333",
+                    "on-tertiary-container": "#9a9b9b",
+                    error: "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dfe0ff",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-primary-fixed": "#000c61",
+                    "on-primary-fixed-variant": "#2436b1",
+                    "secondary-fixed": "#cfe5ff",
+                    "secondary-fixed-dim": "#98cbff",
+                    "on-secondary-fixed": "#001d33",
+                    "on-secondary-fixed-variant": "#004a77",
+                    "tertiary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#454747",
+                    background: "#f9f9fd",
+                    "on-background": "#1a1c1f",
+                    "surface-variant": "#e2e2e6",
+                    success: "#047857",
+                    "success-container": "#d1fae5"
+                },
+                fontFamily: {
+                    sans: ["Inter", "sans-serif"],
+                    mono: ["JetBrains Mono", "monospace"],
+                    "headline-xl": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "body-sm": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"]
+                },
+                fontSize: {
+                    "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                    "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                    "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                    "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                    "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                    "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+                    "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }]
+                }
+            }
+        }
+    }
+</script>
+<meta content="mobile_tab" name="shell-type"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-sans text-on-surface antialiased min-h-screen selection:bg-secondary/20">
+<!-- PWA Mobile Container -->
+<div class="max-w-md mx-auto min-h-screen flex flex-col bg-background pb-36 relative shadow-xl">
+<!-- Header -->
+<header class="px-4 pt-3 pb-3 bg-surface border-b border-outline-variant/50 sticky top-0 z-30">
+<div class="flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0">
+<button aria-label="Go back" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface transition-colors">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+</button>
+<div class="min-w-0">
+<h1 class="text-xl font-bold tracking-tight text-primary truncate leading-tight">Prize Release</h1>
+<p class="text-xs text-on-surface-variant truncate font-medium">
+                        Handover proofs unlock payouts • <span class="text-secondary font-semibold">Pan-African DeFi &amp; AI Buildathon 2024</span>
+</p>
+</div>
+</div>
+<!-- Organizer Avatar with Verified Ring -->
+<div class="relative flex-shrink-0">
+<div class="w-9 h-9 rounded-full ring-2 ring-blue-600/30 overflow-hidden bg-surface-container">
+<img alt="Organizer Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo8_q12jXPkFIHq1lPhUMv8L3846tf_NhBSXPfMeZLMjgomtKqxGpQNwzX0QsMgowHCtZ7re0OczCRhpJ2Ey_cFsIAgpZeeyUEodOv3vkUxSeEP0HJ87cBBACSLdpwprIIpkAS-Fmg4GuJt81O4yL6ZW1_breOrpNhQNVoSgBh8QxnIp73t5bdvkyVZa57CMmx0XBdJ2YGd-6X837PjlnxHPLeZ_vSD6KV8-VVAcqFjiwMWw-5jW3F"/>
+</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-600 border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[8px] text-white font-bold">check</span>
+</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="px-4 pt-4 space-y-4"><div class="flex flex-col w-full space-y-4">
+<!-- Dynamic Urgency & Countdown Card -->
+<div class="bg-primary text-on-primary rounded-xl p-4 shadow-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-secondary-container/20 blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 text-on-primary font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+        Pan-African DeFi &amp; AI Buildathon
+      </span>
+<span class="font-mono text-on-primary-container text-label-sm font-semibold tracking-wider">ESCROW RELEASE</span>
+</div>
+<div class="flex items-baseline justify-between mt-3">
+<div>
+<p class="text-on-primary-container font-label-sm text-label-sm uppercase tracking-wider">Vault Finalization Lock</p>
+<div class="flex items-center gap-1.5 mt-1">
+<div class="bg-surface-container-lowest/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-center">
+<span class="font-headline-md text-headline-md font-mono text-on-primary font-bold" id="pwa-hrs">14</span>
+<span class="block text-[10px] text-on-primary-container uppercase font-label-sm">hrs</span>
+</div>
+<span class="font-headline-md text-on-primary font-bold">:</span>
+<div class="bg-surface-container-lowest/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-center">
+<span class="font-headline-md text-headline-md font-mono text-on-primary font-bold" id="pwa-mins">22</span>
+<span class="block text-[10px] text-on-primary-container uppercase font-label-sm">min</span>
+</div>
+<span class="font-headline-md text-on-primary font-bold">:</span>
+<div class="bg-surface-container-lowest/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-center">
+<span class="font-headline-md text-headline-md font-mono text-secondary-container font-bold" id="pwa-secs">08</span>
+<span class="block text-[10px] text-on-primary-container uppercase font-label-sm">sec</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 text-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-base">timer</span>
+          Strict Window
+        </span>
+<p class="text-on-primary-container text-[11px] font-body-sm mt-0.5">Automated Multi-Sig Cutoff</p>
+</div>
+</div>
+</div>
+<!-- Trust Score & Escrow Release Impact Banner -->
+<div class="bg-surface-container-low rounded-xl p-3.5 shadow-sm">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-body-md text-on-surface font-semibold truncate">Trust &amp; Escrow Release</h2>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold">+15 Score</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+          Verified handover logs release the remaining <strong class="text-primary font-semibold">$15,000 USDC</strong> Track 1 escrow. Overdue handovers cost your organizer Trust Score 1.5 pts.
+        </p>
+<!-- Live Progress Metric Bar -->
+<div class="mt-3">
+<div class="flex justify-between items-center text-[11px] font-label-sm mb-1">
+<span class="text-on-surface-variant font-medium">Deliverables Verified</span>
+<span class="font-mono text-primary font-semibold">2 of 3 Teams Ready</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-secondary rounded-full transition-all duration-500" style="width: 66.6%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Multi-Format Media Dropzone / Handover Uploader -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">cloud_upload</span>
+<h3 class="font-headline-md text-body-md text-on-surface font-bold">Fast Handover Ingestion</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">IPFS Cluster #04</span>
+</div>
+<!-- Active Upload Drop Surface -->
+<div class="group relative rounded-xl bg-surface-container-low p-4 text-center cursor-pointer transition-colors duration-200 hover:bg-surface-container" id="interactive-vault-drop">
+<input accept="image/*,video/*,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="media-upload-input" multiple="" type="file"/>
+<div class="w-12 h-12 mx-auto rounded-full bg-primary-fixed text-primary flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-2xl">drive_folder_upload</span>
+</div>
+<p class="font-label-md text-body-sm text-on-surface font-semibold">Tap to add Proofs or drag files here</p>
+<p class="font-body-sm text-label-sm text-on-surface-variant mt-0.5">Physical award photo, signed cheque, or git transfer</p>
+<div class="mt-3.5 flex flex-wrap items-center justify-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-high text-on-surface-variant text-[11px] font-label-sm">
+<span class="material-symbols-outlined text-[13px]">image</span> Photo / Trophy
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-high text-on-surface-variant text-[11px] font-label-sm">
+<span class="material-symbols-outlined text-[13px]">description</span> Cheque PDF
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-high text-on-surface-variant text-[11px] font-label-sm">
+<span class="material-symbols-outlined text-[13px]">code</span> Git Transfer
+        </span>
+</div>
+</div>
+<!-- Live Hashing & Geo-Validator Strip -->
+<div class="mt-3 bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<div class="min-w-0">
+<span class="text-on-surface font-mono text-[11px] font-semibold block truncate">SHA-256 + Geo-Lock: Active</span>
+<span class="text-on-surface-variant font-body-sm text-[11px] truncate block">Nodes: Lagos (LOS-1) &amp; Nairobi (NBO-4)</span>
+</div>
+</div>
+<span class="shrink-0 px-2 py-0.5 rounded bg-surface-container-lowest text-secondary font-mono text-[10px] font-semibold">
+        ENCRYPTED
+      </span>
+</div>
+</div>
+<!-- Deliverables Tracker Section -->
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline-md text-body-md text-on-surface font-bold flex items-center gap-1.5">
+<span>Team Handover Proofs</span>
+<span class="text-on-surface-variant text-label-sm font-normal">(3 Teams)</span>
+</h3>
+<span class="text-label-sm font-label-sm text-secondary font-semibold">Filter: All</span>
+</div>
+<!-- Team 1: Approved -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-3">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center font-bold text-label-md shrink-0">
+            1st
+          </div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-body-md text-on-surface font-bold truncate">ZK-Shield Protocol</h4>
+<p class="font-body-sm text-label-sm text-on-surface-variant truncate">Prize: $8,000 • Smart Contract Transfer</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[11px] font-bold flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          APPROVED
+        </span>
+</div>
+<!-- Verified Items Sub-grid -->
+<div class="grid grid-cols-2 gap-2">
+<!-- Visual Proof Placeholder 1 -->
+<div class="relative rounded-lg overflow-hidden bg-surface-container h-24">
+<img class="w-full h-full object-cover" data-alt="Award ceremony photograph of victorious first-place hackathon champions holding an oversized symbolic ceremonial check on stage with HackVillage stage lighting and banners in cool navy and bright cyan tones, authentic candid developer joy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_L5RCJFRwUaxDOWj8EfAaMEobTQBU9PGt_r2ioz5dyIGbpCzLwZlfUQksmaKn09Gg1qCbqvGVnFnBDn5x0h4G_OvDX3qFYDEa4V1lEdMjlbe8ZeU4jvRlvbOqoDlDmLKS3uzf-5wq04Ei9Qm9pkH5I2a6lz06ADBXkquDlJx1AAHNh1aPDqQYZFzP90zzAyX57LuB526FieYsGuVscMekERXoR7u3v8lOgytKPONHOp5yZtloVLiM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-1.5 left-2 text-[10px] font-mono text-on-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[11px]">photo_camera</span> Photo Verified
+          </span>
+</div>
+<!-- Document / Signed Receipt -->
+<div class="rounded-lg bg-surface-container-low p-2 flex flex-col justify-between">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-base">picture_as_pdf</span>
+<span class="font-label-sm text-[11px] font-bold truncate">Prize_Receipt_Signed.pdf</span>
+</div>
+<div class="mt-1">
+<span class="font-mono text-[9px] text-on-surface-variant block truncate">CID: QmZ9fU41...mE2</span>
+<span class="font-label-sm text-[10px] text-secondary font-semibold mt-0.5 inline-block">2 Multi-Sigs Confirmed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Team 2: Action Required (Cheque Missing) -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-3">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed text-secondary flex items-center justify-center font-bold text-label-md shrink-0">
+            2nd
+          </div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-body-md text-on-surface font-bold truncate">AutonomousLiquidity</h4>
+<p class="font-body-sm text-label-sm text-on-surface-variant truncate">Prize: $5,000 • Escrow Allocation</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-[11px] font-bold flex items-center gap-1 shrink-0 animate-pulse">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+          ACTION NEEDED
+        </span>
+</div>
+<!-- Deliverables List with Direct Call to Action -->
+<div class="space-y-2 bg-surface-container-low rounded-lg p-2.5">
+<div class="flex items-center justify-between text-label-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+<span class="font-body-sm text-label-sm">GitHub Transfer Log &amp; Commit Verified</span>
+</span>
+<span class="font-mono text-[10px] text-on-surface-variant">0x88f...a1</span>
+</div>
+<div class="flex items-center justify-between text-label-sm pt-1">
+<span class="flex items-center gap-1.5 text-error">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span class="font-label-sm text-label-sm font-semibold">Missing Handover Cheque Photo</span>
+</span>
+<span class="font-label-sm text-[10px] text-error font-bold uppercase tracking-wider">Required</span>
+</div>
+</div>
+<!-- Quick Action Upload Trigger Button for Team 2 -->
+<button class="w-full py-2 px-3 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-body-sm flex items-center justify-center gap-2 font-bold hover:bg-secondary transition-colors">
+<span class="material-symbols-outlined text-base">add_a_photo</span>
+<span>Upload Handover Proof for Team #2</span>
+</button>
+</div>
+<!-- Team 3: Processing (Transcode & IPFS Pinning) -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-3">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold text-label-md shrink-0">
+            3rd
+          </div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-body-md text-on-surface font-bold truncate">NilePay Micro-Rails</h4>
+<p class="font-body-sm text-label-sm text-on-surface-variant truncate">Prize: $2,000 • Multi-sig Transfer</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-bold flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[13px] animate-spin">sync</span>
+          PINNING (72%)
+        </span>
+</div>
+<!-- Progress Card for Video Handover -->
+<div class="p-2.5 bg-surface-container-low rounded-lg space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-secondary text-base">videocam</span>
+<span class="font-body-sm text-label-sm text-on-surface truncate">Demo_Call_Handover_Record.mp4</span>
+</div>
+<span class="font-mono text-[11px] text-secondary font-semibold">248 MB</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-secondary rounded-full transition-all duration-300" style="width: 72%;"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] text-on-surface-variant font-mono">
+<span>Swarm Node: Lagos-IPFS-02</span>
+<span>EST: 42s remaining</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Audit Trail & Cryptographic Signers Log -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">fingerprint</span>
+<h3 class="font-headline-md text-body-md text-on-surface font-bold">Multi-Sig Signer Log</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[11px] font-mono font-bold">2 of 3 signed</span>
+</div>
+<!-- Signers Stack -->
+<div class="space-y-2">
+<!-- Signer 1: Lead Organizer -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait headshot avatar of an African tech hub hackathon lead supervisor in a modern studio setting with warm professional lighting, wearing a navy jacket." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK2PTaDyHn8MMmBkRLGzX7UHjMiMLVxn23dEV-IioWgTEFL1WdY0v4vhp6MAcLmUO3-sEezFYY-zuaDof0uRJ325Pb7HvaBq-7PnHVych--9FMNCK9TvzgRyNjjy4MDVreQ5JVWgwfr-rn-bQwQNUH6G27FEWMSjrrC1kBsxIY-RgSueEgrfv0MNFd2uawydXYIEEQjdwlMI_jkM6enB0MtceucR3KxkJC25iKYOE_mmsawRRah2wX"/>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-sm text-on-surface font-semibold truncate">Amara Okafor (Organizer Node)</p>
+<p class="font-mono text-[10px] text-on-surface-variant truncate">0x4D2a...88B0</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Signer 2: Escrow Auditor -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional modern portrait avatar of a female blockchain smart contract auditor smiling confidently against a minimal architectural backdrop in corporate azure shades." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8ne9x7mhg1YxS3sAYH4bRwLbmv92FZncV8Dk4Me_GU-EYlTtyZNpFxsHeC-yQHfMxo5OPTVFaPe0NLwhvde5eDCMZolZn_SbNj2cX6C1EXg-rRpF7t2cekwSydBsXbf4E9o202uHw0CeOd3BG5G3k4m1DyccvFwEBnOzzN5dl2Bsq-s9N0-RBakalSp6WAQo_gOGYgfV4KbxJNIiUN_GYcgQECKS4slG7EJq-wl6iLY2F8nDzAk_-"/>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-sm text-on-surface font-semibold truncate">Devan Patel (Escrow Overseer)</p>
+<p class="font-mono text-[10px] text-on-surface-variant truncate">0x91F0...3C11</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Signer 3: Technical Validator (Pending) -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low opacity-80">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold text-label-sm shrink-0">
+<span class="material-symbols-outlined text-base">hourglass_top</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-sm text-on-surface font-semibold truncate">Trust-DAO Arbiter</p>
+<p class="font-mono text-[10px] text-on-surface-variant truncate">Awaiting Team 2 Handover Photo</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">pending</span>
+</div>
+</div>
+</div>
+<!-- Micro Toast Notification Element for Interactive Actions -->
+<div class="hidden rounded-xl bg-primary text-on-primary p-3 shadow-lg flex items-center gap-2.5 transition-all" id="vault-toast">
+<span class="material-symbols-outlined text-secondary-container">task_alt</span>
+<span class="font-body-sm text-label-sm" id="vault-toast-msg">File staged. SHA-256 hash verified locally.</span>
+</div>
+</div>
+<script>
+  // Dynamic Synchronized Countdown for 14h 22m 08s
+  (function () {
+    let remain = 14 * 3600 + 22 * 60 + 8;
+    const hEl = document.getElementById('pwa-hrs');
+    const mEl = document.getElementById('pwa-mins');
+    const sEl = document.getElementById('pwa-secs');
+
+    function tick() {
+      if (remain <= 0) return;
+      remain--;
+      const hours = Math.floor(remain / 3600);
+      const minutes = Math.floor((remain % 3600) / 60);
+      const seconds = remain % 60;
+      if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+      if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+      if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+    }
+    setInterval(tick, 1000);
+
+    // Fast File Upload Simulation
+    const fileInput = document.getElementById('media-upload-input');
+    const toast = document.getElementById('vault-toast');
+    const toastMsg = document.getElementById('vault-toast-msg');
+
+    if (fileInput) {
+      fileInput.addEventListener('change', function (e) {
+        if (e.target.files && e.target.files[0]) {
+          const fileName = e.target.files[0].name;
+          if (toast && toastMsg) {
+            toastMsg.textContent = 'Uploaded ' + fileName + ' • SHA-256 generated & queued for IPFS pin.';
+            toast.classList.remove('hidden');
+            setTimeout(function() {
+              toast.classList.add('hidden');
+            }, 4500);
+          }
+        }
+      });
+    }
+  })();
+</script></main>
+<!-- Sticky Action Bar -->
+<div class="fixed bottom-[64px] left-0 right-0 max-w-md mx-auto px-4 py-2.5 bg-surface/95 backdrop-blur-md border-t border-outline-variant/60 z-40 flex items-center gap-2">
+<button class="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-bold text-xs hover:bg-primary-container transition-all shadow-md flex items-center justify-center gap-2"><span class="material-symbols-outlined text-base">lock_open</span><span>Release Verified Prizes</span></button>
+</div>
+<!-- Bottom Navigation (5 tabs) -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto h-[64px] z-50 bg-surface/95 backdrop-blur-md px-3 border-t border-outline-variant flex justify-around items-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">home</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Home</span>
+</a>
+<a aria-current="page" class="flex flex-col items-center justify-center text-primary relative py-1 flex-1" href="#">
+<div class="px-3 py-0.5 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px] fill-1 text-primary">account_balance_wallet</span>
+</div>
+<span class="text-[10px] font-bold tracking-tight text-primary mt-0.5">Escrow</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">emoji_events</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Winners</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">perm_media</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Trust</span>
+</a>
+</nav>
+</div>
+</body></html>
