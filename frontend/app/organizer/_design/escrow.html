@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Escrow | HackVillage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill-1 {
+        font-variation-settings: 'FILL' 1;
+    }
+    .font-mono-num {
+        font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.5; }
+    }
+    .animate-pulse-dot {
+        animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    /* Hide scrollbar for tabs */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    surface: "#f9f9fd",
+                    "surface-dim": "#d9dade",
+                    "surface-bright": "#f9f9fd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3f7",
+                    "surface-container": "#eeedf2",
+                    "surface-container-high": "#e8e8ec",
+                    "surface-container-highest": "#e2e2e6",
+                    "on-surface": "#1a1c1f",
+                    "on-surface-variant": "#454654",
+                    "inverse-surface": "#2f3034",
+                    "inverse-on-surface": "#f0f0f4",
+                    outline: "#757685",
+                    "outline-variant": "#c5c5d6",
+                    "surface-tint": "#4051ca",
+                    primary: "#000d66",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#001a9e",
+                    "on-primary-container": "#8391ff",
+                    "inverse-primary": "#bcc2ff",
+                    secondary: "#00629d",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#00a2fd",
+                    "on-secondary-container": "#003558",
+                    tertiary: "#1c1e1e",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#313333",
+                    "on-tertiary-container": "#9a9b9b",
+                    error: "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dfe0ff",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-primary-fixed": "#000c61",
+                    "on-primary-fixed-variant": "#2436b1",
+                    "secondary-fixed": "#cfe5ff",
+                    "secondary-fixed-dim": "#98cbff",
+                    "on-secondary-fixed": "#001d33",
+                    "on-secondary-fixed-variant": "#004a77",
+                    "tertiary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "on-tertiary-fixed-variant": "#454747",
+                    background: "#f9f9fd",
+                    "on-background": "#1a1c1f",
+                    "surface-variant": "#e2e2e6",
+                    success: "#047857",
+                    "success-container": "#d1fae5"
+                },
+                fontFamily: {
+                    sans: ["Inter", "sans-serif"],
+                    mono: ["JetBrains Mono", "monospace"],
+                    "headline-xl": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "body-sm": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"]
+                },
+                fontSize: {
+                    "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                    "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                    "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                    "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                    "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                    "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                    "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+                    "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }]
+                }
+            }
+        }
+    }
+</script>
+<meta content="mobile_tab" name="shell-type"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-sans text-on-surface antialiased min-h-screen selection:bg-secondary/20">
+<!-- PWA Mobile Container -->
+<div class="max-w-md mx-auto min-h-screen flex flex-col bg-background pb-24 relative shadow-xl">
+<!-- Header -->
+<header class="px-4 pt-3 pb-3 bg-surface border-b border-outline-variant/50 sticky top-0 z-30">
+<div class="flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="min-w-0">
+<h1 class="text-xl font-bold tracking-tight text-primary truncate leading-tight">Escrow</h1>
+<p class="text-xs text-on-surface-variant truncate font-medium">
+                        Prize vaults and payouts • <span class="text-secondary font-semibold">All events</span>
+</p>
+</div>
+</div>
+<!-- Organizer Avatar with Verified Ring -->
+<div class="relative flex-shrink-0">
+<div class="w-9 h-9 rounded-full ring-2 ring-blue-600/30 overflow-hidden bg-surface-container">
+<img alt="Organizer Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo8_q12jXPkFIHq1lPhUMv8L3846tf_NhBSXPfMeZLMjgomtKqxGpQNwzX0QsMgowHCtZ7re0OczCRhpJ2Ey_cFsIAgpZeeyUEodOv3vkUxSeEP0HJ87cBBACSLdpwprIIpkAS-Fmg4GuJt81O4yL6ZW1_breOrpNhQNVoSgBh8QxnIp73t5bdvkyVZa57CMmx0XBdJ2YGd-6X837PjlnxHPLeZ_vSD6KV8-VVAcqFjiwMWw-5jW3F"/>
+</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-600 border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[8px] text-white font-bold">check</span>
+</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="px-4 pt-4 space-y-4"><div class="flex flex-col w-full space-y-4">
+<!-- Multisig Status Banner -->
+<div class="bg-primary text-on-primary rounded-xl p-3 shadow-md flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">shield_lock</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md truncate">Safe Multisig (3/5)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+</div>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim truncate">
+          0x7F2...b481 • Arbitrum One
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 bg-primary-container px-2.5 py-1 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-[14px] text-secondary-container">verified</span>
+<span class="font-label-sm text-label-sm text-on-primary">Audited</span>
+</div>
+</div>
+<!-- Escrow Metrics Bento -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Held in Escrow -->
+<div class="bg-surface-container-lowest rounded-xl p-3 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Escrow Balance</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
+</div>
+<div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">$142,500</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-0.5">USDC • 100% Solvent</span>
+</div>
+</div>
+<!-- Disbursed -->
+<div class="bg-surface-container-lowest rounded-xl p-3 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Disbursed YTD</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">payments</span>
+</div>
+<div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">$380,000</span>
+<span class="font-label-sm text-label-sm text-secondary block mt-0.5">24 Hackathons Paid</span>
+</div>
+</div>
+</div>
+<!-- Event Selector Tabs -->
+<div class="overflow-x-auto no-scrollbar -mx-4 px-4 flex gap-2">
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap shadow-sm">
+      Pan-African DeFi ($25k)
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">
+      ZK Sprint ($40k)
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">
+      DePIN Jam ($15k)
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">
+      All Events
+    </button>
+</div>
+<!-- Selected Hackathon Escrow Status -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<!-- Header with visual deposit confirmation -->
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Vault #0492</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pan-African DeFi</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mt-0.5">$25,000.00 USDC</h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+        Confirmed
+      </span>
+</div>
+<!-- Deposit Details Bar -->
+<div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">input</span>
+<div class="min-w-0">
+<p class="font-label-sm text-label-sm truncate">Deposit Tx: 0x4a9...81c</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">64 block confirmations</p>
+</div>
+</div>
+<button class="p-1 rounded-lg hover:bg-surface-container-highest transition-colors flex-shrink-0" title="Copy Hash">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">content_copy</span>
+</button>
+</div>
+<!-- Payout Pipeline Header -->
+<div class="pt-1 flex items-center justify-between">
+<h3 class="font-label-md text-label-md text-on-surface">Multi-sig Payout Pipeline</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 allocations</span>
+</div>
+<!-- Pipeline List -->
+<div class="space-y-2.5">
+<!-- 1st Place: Confirmed -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm flex items-center justify-center font-bold">1</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Team ZK-Shield</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">1st Prize</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-primary">$8,000 USDC</p>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+              Paid
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t-0 bg-surface-container-highest/60 px-2 py-1 rounded">
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Tx: 0xb81...9e44</span>
+<a class="font-label-sm text-label-sm text-secondary font-semibold hover:underline flex items-center gap-0.5" href="#">
+            Explorer <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- 2nd Place: Failed with Delightful Retry Flow -->
+<div class="bg-error-container rounded-xl p-3 flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-error text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold">2</span>
+<div>
+<p class="font-label-md text-label-md text-on-error-container">AutonomousLiquidity</p>
+<p class="font-label-sm text-label-sm text-on-error-container/80">2nd Prize</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-error-container font-bold">$5,000 USDC</p>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-error font-semibold">
+<span class="material-symbols-outlined text-[13px]">error</span>
+              RPC Timeout
+            </span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-error-container">
+          Gas spike exceeded threshold during 3rd signer confirmation. Funds remain safe in vault.
+        </p>
+<div class="flex items-center justify-between gap-2 pt-1">
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-error-container/70">
+<span class="material-symbols-outlined text-[14px]">local_gas_station</span>
+<span>Est. ~0.00042 ETH ($1.38)</span>
+</div>
+<button class="bg-primary text-on-primary px-3 py-1.5 rounded-lg font-label-sm text-label-sm font-semibold shadow-sm hover:bg-primary-container transition-all flex items-center gap-1.5" id="retry-btn">
+<span class="material-symbols-outlined text-[14px] transition-transform duration-500" id="retry-spinner">refresh</span>
+<span>Retry Payout</span>
+</button>
+</div>
+</div>
+<!-- 3rd Place: Awaiting Multisig -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm flex items-center justify-center font-bold">3</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Team NilePay</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">3rd Prize</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-primary">$2,000 USDC</p>
+<span class="font-label-sm text-label-sm text-secondary font-medium">2/3 Signed</span>
+</div>
+</div>
+<!-- Signature Progress bar -->
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 66%;"></div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Signer #3: Pending</span>
+<button class="bg-secondary text-on-secondary px-3 py-1 rounded-lg font-label-sm text-label-sm font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">draw</span>
+            Sign Tx
+          </button>
+</div>
+</div>
+<!-- Bounties: Timelock -->
+<div class="bg-surface-container-low rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface truncate">Track 2 Bounties (Pool)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Timelock releases in 14h 22m</p>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<p class="font-label-md text-label-md text-primary">$10,000 USDC</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Queued</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Audit & Dispute History Section -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Audit Ledger</h3>
+<button class="text-secondary hover:text-primary transition-colors flex items-center gap-1 font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+        Export CSV
+      </button>
+</div>
+<!-- Quick Ledger Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-on-surface-variant">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest" placeholder="Filter by address, Tx, or team..." type="text"/>
+</div>
+<!-- Mini History List -->
+<div class="divide-y divide-surface-container-highest/50 space-y-2">
+<div class="pt-2 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Escrow Deposit Confirmed</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pan-African DeFi &amp; AI Buildathon • 2 days ago</p>
+</div>
+<span class="font-label-md text-label-md text-secondary font-bold">+$25,000</span>
+</div>
+<div class="pt-2 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Disbursement: ZK-Shield</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Multi-sig 3/3 • Yesterday</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">-$8,000</span>
+</div>
+<div class="pt-2 flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Gas Subsidy Rebalanced</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Relayer Fund • 3 days ago</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">-$45.20</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for the Retry Payout button
+  const retryBtn = document.getElementById('retry-btn');
+  const spinner = document.getElementById('retry-spinner');
+
+  if (retryBtn && spinner) {
+    retryBtn.addEventListener('click', () => {
+      spinner.classList.add('animate-spin');
+      retryBtn.disabled = true;
+      retryBtn.innerHTML = `
+        <span class="material-symbols-outlined text-[14px] animate-spin">refresh</span>
+        <span>Broadcasting...</span>
+      `;
+      setTimeout(() => {
+        retryBtn.parentElement.parentElement.classList.remove('bg-error-container');
+        retryBtn.parentElement.parentElement.classList.add('bg-surface-container-low');
+        retryBtn.parentElement.parentElement.innerHTML = `
+          <div class="flex items-center justify-between w-full">
+            <div>
+              <p class="font-label-md text-label-md text-on-surface">AutonomousLiquidity</p>
+              <p class="font-label-sm text-label-sm text-on-surface-variant">2nd Prize • Broadcasting</p>
+            </div>
+            <div class="text-right">
+              <p class="font-label-md text-label-md text-primary">$5,000 USDC</p>
+              <span class="font-label-sm text-label-sm text-secondary font-medium">Tx Pending...</span>
+            </div>
+          </div>
+        `;
+      }, 1400);
+    });
+  }
+</script></main>
+<!-- Bottom Navigation (5 tabs) -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto h-[64px] z-50 bg-surface/95 backdrop-blur-md px-3 border-t border-outline-variant flex justify-around items-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">home</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Home</span>
+</a>
+<a aria-current="page" class="flex flex-col items-center justify-center text-primary relative py-1 flex-1" href="#">
+<div class="px-3 py-0.5 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px] fill-1 text-primary">account_balance_wallet</span>
+</div>
+<span class="text-[10px] font-bold tracking-tight text-primary mt-0.5">Escrow</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">emoji_events</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Winners</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">perm_media</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Media</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors py-1 flex-1" href="#">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+<span class="text-[10px] font-semibold tracking-tight mt-0.5">Trust</span>
+</a>
+</nav>
+</div>
+</body></html>
